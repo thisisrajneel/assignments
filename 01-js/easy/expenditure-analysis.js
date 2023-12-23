@@ -14,7 +14,22 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  let spends = []
+  
+  for (const t of transactions) {
+    let temp = spends.filter( s => s.category == t.category)
+    if(temp == []) {
+      const add = { 'category': t.category, 'totalSpent': t.price}
+      spends = spends.concat(add)
+    }
+    else {
+      temp.map( s => {
+        s.totalSpent += t.price
+      })
+    }
+  }
+
+  return spends;
 }
 
 module.exports = calculateTotalSpentByCategory;
