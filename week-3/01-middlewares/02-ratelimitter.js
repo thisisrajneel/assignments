@@ -17,6 +17,7 @@ setInterval(() => {
 }, 1000)
 
 app.get('/user', function(req, res) {
+  numberOfRequestsForUser.append(req.headers.user-id)
   res.status(200).json({ name: 'john' });
 });
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+</head>
+
+<body>
+    <input type="text" placeholder="title" id="title">
+    <br><br>
+    <input type="text" placeholder="description" id="description">
+    <br><br>
+    <button onclick="addToDo()">add</button>
+    <br><br>
+    <div id="container">
+
+    </div>
+</body>
+<script>
+    let title = document.getElementById("title")
+    let description = document.getElementById("description")
+    let container = document.getElementById("container")
+
+    const markAsDone = (id) => {
+        const parent = document.getElementById(id)
+        
+        if(parent.childNodes[2].innerText == 'Mark as Done') {
+            parent.childNodes[2].innerText = 'Done'
+        }
+        else {
+            parent.childNodes[2].innerText = 'Mark as Done'
+        }
+    }
+
+    const removeToDo = (id) => {
+        const remove = document.getElementById(id)
+        const removedToDo = container.removeChild(remove)
+
+        alert(`title : ${remove.childNodes[0].innerText}\ndescription : ${remove.childNodes[1].innerText}\nremoved.`)
+    }
+
+    const addToDo = () => {
+        if(title.value=='') {
+            alert('add a title')
+            return
+        }
+        else if(description.value == '') {
+            alert('add description')
+            return
+        }
+
+        const newID = Math.floor(Math.random() * 100000)
+
+        let newToDo = document.createElement('div')
+        newToDo.setAttribute('id', newID)
+
+        let newTitle = document.createElement('p')
+        newTitle.innerText = title.value
+        newToDo.appendChild(newTitle)
+
+        let newDescription = document.createElement('p')
+        newDescription.innerText = description.value
+        newToDo.appendChild(newDescription)
+
+        let markAsDone = document.createElement('button')
+        markAsDone.setAttribute('onclick', `markAsDone(${newID})`)
+        markAsDone.innerText = "Mark as Done"
+        newToDo.appendChild(markAsDone)
+
+        let remove = document.createElement('button')
+        remove.setAttribute('onclick', `removeToDo(${newID})`)
+        remove.innerText = 'Remove'
+        newToDo.appendChild(remove)
+
+        container.appendChild(newToDo)
+
+        title.value = ''
+        description.value = ''
+    }
+</script>
+</html>
