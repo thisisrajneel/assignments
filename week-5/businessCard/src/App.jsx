@@ -2,32 +2,47 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Card from './components/Card'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [cards, setCards] = useState([])
+  const [name, setName] = useState("")
+  const [description, setDescription] = useState("")
+  const [interests, setInterests] = useState([])
+
+  const addCard = () => {
+    
+    const newCard = {
+      name: name,
+      description: description,
+      interests: interests
+    }
+
+    setCards(cards.concat(newCard))
+  }
+
+  const interestsHandler = (interestString) => {
+    interestString = document.getElementById('interestString').value
+    let interestArray = interestString.split(',')
+    interestArray = interestArray.filter( i => i!="" && i!=" ")
+    setInterests(interestArray)
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <input className='inputTxt' type='text' placeholder='name' onChange={(e) => setName(e.target.value)}></input>
+     
+      <input className='inputTxt' type='text' placeholder='description' onChange={(e) => setDescription(e.target.value)}></input>
+      
+      <input id='interestString' className='inputTxt' type='text' placeholder='enter your interests separated by commas' onChange={(e) => interestsHandler(e.target.value)}></input>
+
+      <button onClick={() => addCard()}>
+        add card
+      </button>
+
+      <div id='cardContainer'>
+        <Card name={'Rajneel'} description={'full stack dev'} interests={['gym', 'code', 'movies']} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
