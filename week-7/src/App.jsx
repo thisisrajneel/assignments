@@ -1,29 +1,17 @@
-import Card from './pages/Card/Card'
-import Background from './pages/Background/Background'
-import Para from './pages/Para'
-import Login from './pages/Login'
 import './App.css'
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
+import { lazy } from 'react'
+const Card = lazy(() => import('./pages/Card/Card'))
+const Background = lazy(() => import('./pages/Background/Background'))
+const Para = lazy(() => import('./pages/Para'))
+const Login = lazy(() => import('./pages/Login'))
 
 function App() {
-
+  
   return (
     <BrowserRouter>
-      <nav className='navContainer'>
-          <div className='navButton'>
-            <Link to="/Background">Background</Link>
-          </div>
-          <div className='navButton'>
-            <Link to="/Card">Card</Link>
-          </div>
-          <div className='navButton'>
-            <Link to="/Para">Para</Link>
-          </div>
-          <div className='navButton'>
-            <Link to="/Login">Login</Link>
-          </div>
-      </nav>
-
+      
+      <Navbar />
 
       <Routes>
         <Route path="/Background" element={<Background />} />
@@ -32,6 +20,20 @@ function App() {
         <Route path="/Login" element={<Login />} />
       </Routes>
     </BrowserRouter>
+  )
+}
+
+const Navbar = () => {
+  const navigate = useNavigate()
+  return (
+    <>
+      <nav className='navContainer'>
+          <button className='navButton' onClick={() => navigate('/Background')}>Background</button>
+          <button className='navButton' onClick={() => navigate('/Card')}>Card</button>
+          <button className='navButton' onClick={() => navigate('/Para')}>Para</button>
+          <button className='navButton' onClick={() => navigate('/Login')}>Login</button>
+      </nav>
+    </>
   )
 }
 
