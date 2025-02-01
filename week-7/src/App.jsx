@@ -1,5 +1,5 @@
 import Card from './pages/Card/Card'
-import Background from './pages/Background'
+import Background from './pages/Background/Background'
 import Para from './pages/Para'
 import Login from './pages/Login'
 import './App.css'
